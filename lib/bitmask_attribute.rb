@@ -31,7 +31,7 @@ module BitmaskAttribute
       return if defined?(Rails) && Rails.configuration.cache_classes
 
       unless model.columns.detect { |col| col.name == attribute.to_s }
-        raise ArgumentError, "`#{attribute}' is not an attribute of `#{model}'"
+        Rails.logger.warn "WARNING: `#{attribute}' is not an attribute of `#{model}'. But, it's ok if it happens during migrations and your \"bitmasked\" attribute is still not created."
       end
     end
     
