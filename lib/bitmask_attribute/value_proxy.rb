@@ -33,7 +33,7 @@ module BitmaskAttribute
     #######
     
     def validate!
-      each do |value| 
+      each do |value|
         if @mapping.key? value
           true
         else
@@ -53,7 +53,7 @@ module BitmaskAttribute
     end
   
     def extract_values
-      stored = @record.send(:read_attribute, @attribute) || 0
+      stored = [@record.send(:read_attribute, @attribute) || 0, 0].max
       @mapping.inject([]) do |values, (value, bitmask)|
         returning values do
           values << value.to_sym if (stored & bitmask > 0)
